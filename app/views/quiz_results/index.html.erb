@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Quiz results</h1>
+<p>Find me at views/quiz_results/index.html.erb</p>
+
+<%= @test %>
+
+<div id="quiz_results">
+  <% @quiz_results.each do |quiz_result| %>
+    <%= render quiz_result %>
+    
+    <p>
+      <%=  quiz_result.name %>
+    </p>
+
+    <p>
+      <%= link_to "Show this quiz result", quiz_result %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New quiz result", new_quiz_result_path %>

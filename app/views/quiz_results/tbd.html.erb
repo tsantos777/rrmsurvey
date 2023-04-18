@@ -1,0 +1,25 @@
+<h1 class="title">Quiz</h1>
+<p style="color: green"><%= notice %></p>
+<p>Quiz Question</p>
+<div class="meta">
+    <p class"info">Name <%= @quiz_result.name %>
+    </p>
+    <p class"info">Phone <%= @quiz_result.phone %></p>
+    <p class"info">Email <%= @quiz_result.email %></p>
+ 
+    <p class"info">Flight Training <%= @quiz_result.flightTraining %> </p>
+    <p class"update">Why Pilot <%= @quiz_result.whyPilot %></p>
+
+    <p class"info">Past Training <%= @quiz_result.pastTraining %> </p>
+
+    <p class"update">Last Update <%= @quiz_result.updated_at.strftime('%m/%d/%Y') %> </p>
+    
+</div>
+
+<div class="links">
+<%= link_to 'Home', quiz_index_path %>
+<%= link_to "New Quiz", new_quiz_result_path %>
+</div>
+
+<br>
+<%= render 'meta', quiz_result: @quiz_result %>

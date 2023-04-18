@@ -1,0 +1,197 @@
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js"></script>
+<script>
+function validatePage1() {
+
+  // Perform necessary coding if you want to display error message via innerHTML or alert --- just comment the code.
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneNumberPattern = /^\d{10}$/; // regular expression pattern for a 10-digit phone number
+
+  var fullName = document.getElementById("quiz_result_name").value.trim();
+  confirm(fullName); 
+  var errorMsgPage1 = document.getElementById("errorMsgPage1");
+
+  if (fullName.length < 2) {
+    alert("Please enter a valid full name.");
+    errorMsgPage1.innerHTML = "<br>Invalid full name";
+    return false;
+  }
+  
+  var nameParts = fullName.split(" ");
+  
+  if (nameParts.length < 2) {
+    alert("Please enter both a first and last name.");
+    errorMsgPage1.innerHTML = "<br>Enter both first and last name";
+    return false;
+  }
+  
+  var firstName = nameParts[0];
+  var lastName = nameParts[nameParts.length - 1];
+  
+  if (firstName.length < 2 || lastName.length < 2) {
+    alert("Please enter valid first and last names.");
+
+    errorMsgPage1.innerHTML = "<br>Enter valid first and last name";
+    return false;
+  }
+
+  var phoneNumber = document.getElementById("quiz_result_phone").value;
+
+  if (!phoneNumberPattern.test(phoneNumber)) {
+    alert("Please enter a valid 10-digit phone number.");
+
+    errorMsgPage1.innerHTML = "<br>Enter valid 10-digit phone number";
+    return false;
+  }
+
+
+  var email = document.getElementById("quiz_result_email").value;
+  if (!emailRegex.test(email)) {
+      alert("Please enter valid Email");
+      errorMsgPage1.innerHTML = "<br>Enter valid Email";
+    
+      return false;
+  }
+  errorMsgPage1.innerHTML = "<br>"
+  // if we get to this point, the phone number is valid
+  return true;
+}
+</script>
+
+
+
+<%= form_with(model: quiz_result) do |form| %>
+  <% if quiz_result.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(quiz_result.errors.count, "error") %> prohibited this quiz_result from being saved:</h2>
+
+      <ul>
+        <% quiz_result.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div x-data="{ currentPage: 1, errorPage1: false}"> <!-- DIV START MULTI-FORM -->
+
+  <!-- Page 1 -->
+  <div x-show="currentPage === 1" >
+    <fieldset>
+      <legend>Personal Information</legend>
+            <%= form.label :name, "Name" %>
+            <%= form.text_field :name  %><br> 
+            <%= form.label :phone, "Phone" %>
+            <%= form.text_field :phone  %><br>
+            <%= form.label :email, "Email" %>
+            <%= form.text_field :email  %> 
+            <br/>
+            <span x-show="errorPage1" id="errorMsgPage1" style="color: red;"><!--ERROR MSG HERE --></span>
+            <br/>
+            <button @click='errorPage1 = false; validatePage1() ? currentPage++ : errorPage1 = true; return false '>Next</button -->
+
+            <br/>
+    </fieldset>
+  </div>
+
+
+  <!-- Page 2 -->
+  <div x-show="currentPage === 2">
+      <fieldset>
+          <legend>Aviator's Experience and Goals</legend>
+
+            <label>What flight training program are you interested in?</label>
+            <%= form.select :flightTraining, QuizResult::FLIGHTTRAINING %>
+
+            <br /><br />
+
+            <%= form.label :whyPilot, "Why do you want to become a pilot?" %>
+            <%= form.text_area :whyPilot, row: 5  %>
+            <br /><br /> 
+            
+            <label>What training have you done in the past?</label><br>
+            
+            <% QuizResult::PASTTRAINING.each do |key| %>
+              <%= form.check_box :pastTraining, {multiple: true, checked: form.object.pastTraining&.include?(key.to_s)}, key, nil %>
+              <%= form.label key %><br>
+            <% end %>  
+
+            <br /><br />
+
+            <!--- %= form.label :whatWinglift, "What causes a wing to generate lift" %>
+            <!--- %= form.text_area :whatWinglift, row: 5  %>
+            <br /><br / ---> 
+
+            <%= form.label :instructTeach, "What do you want your flight instructor to teach you?" %>
+              <%= form.text_area :instructTeach, row: 5  %>
+              <br /><br /> 
+            <%= form.label :aviationGoals, "What are your aviation goals?" %>
+                <%= form.text_area :aviationGoals, row: 5  %>
+              <br /><br /> 
+              
+            <br/>
+              <button x-on:click="currentPage-- ; return false">Back</button>
+              <button x-on:click="currentPage++ ; return false">Next</button>
+        </fieldset>
+  </div> <!-- End Page 2 -->
+
+  <!-- Page 3 -->
+  <div x-show="currentPage === 3">
+          <fieldset>
+              <legend>Discovery Flight</legend>
+              <label>Do you want to schedule a visit?</label>
+              <button x-on:click="currentPage++ ;  return false">Yes</button>
+              <button x-on:click="currentPage = 5">No</button>
+          </fieldset>
+  </div>
+
+
+  <!-- Page 4 -->
+  <div x-show="currentPage === 4">
+        <fieldset>
+          <legend>Preferred Date and Time of Visit</legend>
+          <div class="form-group">
+            <label>Preferred Date </label>
+            <%= form.date_field :preferredDate %>
+          </div>
+          <div class="form-group">
+            <label>Preferred Time</label>
+            <%= form.select :preferredTime, QuizResult::VISITTIME %>
+            <br /><br />
+          </div>
+          <div class="form-group">
+            <label>Alternate Date</label>
+            <%= form.date_field :alternateDate %>
+          </div>
+          <div class="form-group">
+            <label>Alternate Time</label>
+            <%= form.select :alternateTime, QuizResult::VISITTIME %>
+            <br /><br />
+          </div>
+          <div class="form-group">
+            <button x-on:click="currentPage-- ;  return false">Back</button>
+            <button x-on:click="return true ; currentPage = 1">Submit</button>
+          </div>
+    </fieldset>
+  </div> <!--- END OF PAGE 4 --->
+
+
+  </div> <!-- DIV END MULTI-FORM -->
+
+  <div>
+    <!---  %= form.submit %  --->
+  </div>
+<% end %>
+
+<script>
+  function validatePageX() {
+    alert("TEST");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneNumberPattern = /^\d{10}$/; // regular expression pattern for a 10-digit phone number
+    alert("TEST 1");
+    var fullName = 'TS'; 
+    var fullName = document.getElementById("quiz_result_name").value.trim();
+    alert("TEST2");
+    alert(fullName);
+    return false;
+  }
+  </script>

@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-page Form with Alpine.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js"></script>
+</head>
+<body>
+    <div x-data="{ currentPage: 1, formData: {}}">
+
+        <!-- Page 1 -->
+        <div x-show="currentPage === 1">
+            <fieldset>
+                <legend>Page 1</legend>
+                <label for="name">Name:</label>
+                <input type="text" id="name" x-model="formData.name">
+                <br>
+                <label for="phone">Phone number:</label>
+                <input type="text" id="phone" x-model="formData.phone">
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" x-model="formData.email">
+                <br>
+
+                <button x-on:click="currentPage++">Next</button>
+            </fieldset>
+        </div>
+
+        <!-- Page 2 -->
+        <div x-show="currentPage === 2">
+            <fieldset>
+                <legend>Page 2</legend>
+                <h2>Page 2: Flight Training Program</h2>
+    <div class="form-group">
+        <label for="flightTraining">What flight training program are you interested in?</label>
+        <select name="flightTraining" id="flightTraining" x-model="formData.flightTraining">
+            <option value="Airplane pilot training">Airplane pilot training</option>
+            <option value="Helicopter pilot training">Helicopter pilot training</option>
+            <option value="Both">Both</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="whyPilot">Why do you want to become a pilot?</label>
+        <textarea name="whyPilot" id="whyPilot" x-model="formData.whyPilot"></textarea>
+    </div>
+    <div class="form-group">
+        <label>What training have you done in the past?</label><br>
+        <input type="checkbox" name="training1" value="Never piloted an aircraft before" x-model="formData.training"> Never piloted an aircraft before<br>
+        <input type="checkbox" name="training2" value="A few hours but never soloed" x-model="formData.training"> A few hours but never soloed<br>
+        <input type="checkbox" name="training3" value="I have time using flight simulators" x-model="formData.training"> I have time using flight simulators<br>
+        <input type="checkbox" name="training4" value="I've flown drones" x-model="formData.training"> I've flown drones<br>
+        <input type="checkbox" name="training5" value="I'm working on a checkride" x-model="formData.training"> I'm working on a checkride
+    </div>
+    <div class="form-group">
+        <label for="wingLift">What causes a wing to generate lift?</label>
+        <textarea id="wingLift" x-model="formData.wingLift"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="instructorTeach">What do you want your flight instructor to teach you?</label>
+         <textarea name="instructorTeach" id="instructorTeach" x-model="formData.instructorTeach"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="aviationGoals">What are your aviation goals?</label>
+        <textarea name="aviationGoals" id="aviationGoals" x-model="formData.aviationGoals"></textarea>
+    </div>
+
+                <br><br>
+                <button x-on:click="currentPage--">Previous</button>
+                <button x-on:click="currentPage++">Next</button>
+            </fieldset>
+        </div>
+
+        <!-- Page 3 -->
+        <div x-show="currentPage === 3">
+            <fieldset>
+                <legend>Page 3</legend>
+                <label>Do you want to schedule a visit?</label>
+                <button x-on:click="currentPage++">Yes</button>
+                <button x-on:click="currentPage = 5">No</button>
+            </fieldset>
+        </div>
+
+        <!-- Page 4 -->
+        <!-- Page 4 -->
+<div x-show="currentPage === 4">
+  <h2>Preferred Date and Time of Visit</h2>
+  <div class="form-group">
+    <label for="preferred-date">Preferred Date:</label>
+    <input type="date" id="preferred-date" x-model="formData.preferredDate">
+  </div>
+  <div class="form-group">
+    <label for="availability">Availability:</label>
+    <select id="availability" x-model="formData.availability">
+      <option value="">--Select--</option>
+      <option value="7 AM to 10 AM">7 AM to 10 AM</option>
+      <option value="10 AM to 1 PM">10 AM to 1 PM</option>
+      <option value="1 PM to 4 PM">1 PM to 4 PM</option>
+      <option value="4 PM to 7 PM">4 PM to 7 PM</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="alternate-date">Alternate Date:</label>
+    <input type="date" id="alternate-date" x-model="formData.alternateDate">
+  </div>
+  <div class="form-group">
+    <label for="alternate-availability">Alternate Availability:</label>
+    <select id="alternate-availability" x-model="formData.alternateAvailability">
+      <option value="">--Select--</option>
+      <option value="7 AM to 10 AM">7 AM to 10 AM</option>
+      <option value="10 AM to 1 PM">10 AM to 1 PM</option>
+      <option value="1 PM to 4 PM">1 PM to 4 PM</option>
+      <option value="4 PM to 7 PM">4 PM to 7 PM</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-secondary" x-on:click="currentPage--">Back</button>
+    <button type="button" class="btn btn-primary" x-on:click="submitForm()">Submit</button>
+  </div>
+</div>
+
+
+        <!-- Success message -->
+        <div x-show="currentPage === 5">
+            <h1>Success!</h1>
+            <p>Your form has been submitted.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function submitForm() {
+            // Here you can do whatever you want with the form data
+            // For this example, we just show a success message
+            currentPage =  5;
+           alert('Form submitted successfully!');            
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<h1>Quiz</h1>
+<p>Find me in app/views/quiz/index.html.erb</p>
+<p>Quiz will be here</p>
+
+<div>
+   <% @quiz_results.each do |quiz| 
+    %>
+       <p>
+          <h4><%= quiz.name %></h4>
+          <!--- %= link_to "View", quiz_results_path(quiz), class: 'quizLink'% --->
+       
+          <%= link_to "View", quiz, class: 'quizLink'%>
+       </p>
+    <% end %>
+</div>
+
+<%= link_to 'About', quiz_about_path %>
+
+<%= link_to "New Quiz", new_quiz_result_path %>

@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @quiz_result %>
+
+<%= @quiz_result.name %>
+
+
+<div>
+  <%= link_to "Edit this quiz result", edit_quiz_result_path(@quiz_result) %> |
+  <%= link_to "Back to quiz results", quiz_results_path %>
+
+  <%= button_to "Destroy this quiz result", @quiz_result, method: :delete %>
+</div>
+
+
+<%= render 'meta', quiz_result: @quiz_result %>

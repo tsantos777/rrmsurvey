@@ -1,0 +1,36 @@
+<%= form_with(model: quiz_result) do |form| %>
+  <% if quiz_result.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(quiz_result.errors.count, "error") %> prohibited this quiz_result from being saved:</h2>
+
+      <ul>
+        <% quiz_result.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.label :name, "Name" %>
+  <%= form.text_field :name  %>
+  <%= form.label :phone, "Phone" %>
+  <%= form.text_field :phone  %>
+  <%= form.label :email, "Email" %>
+  <%= form.text_field :email  %> 
+  <br/>
+
+  <%= form.label :flightTraining, "FlightTraining" %>
+  <%= form.text_area :flightTraining, row: 5  %>
+  <br />
+  <%= form.label :whyPilot, "Why Pilot" %>
+  <%= form.text_area :whyPilot, row: 5  %>
+  <br />
+  <%= form.label :pastTraining, "Past Training" %>
+  <%= form.text_field :pastTraining  %>
+  
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
