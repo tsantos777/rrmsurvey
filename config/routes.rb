@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts
   resources :quiz_results
   get 'quiz/index'
   get 'quiz/about'
@@ -15,7 +16,6 @@ Rails.application.routes.draw do
   get "/survey", to: "survey#index"
 
   #match 'quiz_results/:id', to: 'quiz_results#show', via: [:get, :post]
-
 
 
 end

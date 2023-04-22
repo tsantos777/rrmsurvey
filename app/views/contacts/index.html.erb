@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Contacts</h1>
+
+<div id="contacts">
+  <% @contacts.each do |contact| %>
+    <%= render contact %>
+    <p>LACRM CONTACT ID <%= contact.lacrm_contact_id %> </br> 
+    RESPONSE CODE <%= contact.lacrm_response_code %> &nbsp; 
+    RESPONSE BODY  <%= contact.lacrm_response_body %>
+    </p>
+    <p>
+      <%= link_to "Show this contact", contact %>
+    </p>
+  <% end %>
+</div>
+
+<br/>
+<%= link_to "New contact", new_contact_path %>
