@@ -46,7 +46,7 @@ function validatePage1() {
 
   var email = document.getElementById("quiz_result_email").value;
   if (!emailRegex.test(email)) {
-      alert("Please enter valid Email");
+    //  alert("Please enter valid Email");
       errorMsgPage1.innerHTML = "<br>Enter valid Email";
     
       return false;
@@ -72,7 +72,7 @@ function validatePage1() {
     </div>
   <% end %>
 
-  <div x-data="{ currentPage: 1, errorPage1: false}"> <!-- DIV START MULTI-FORM -->
+  <div x-data="{ currentPage: 1 , errorPage1: false}"> <!-- DIV START MULTI-FORM -->
 
   <!-- Page 1 -->
   <div x-show="currentPage === 1" >
@@ -83,7 +83,7 @@ function validatePage1() {
             <%= form.label :phone, "Phone" %>
             <%= form.text_field :phone  %><br>
             <%= form.label :email, "Email" %>
-            <%= form.text_field :email  %> 
+            <%= form.email_field :email  %> 
             <br/>
             <span x-show="errorPage1" id="errorMsgPage1" style="color: red;"><!--ERROR MSG HERE --></span>
             <br/>
